@@ -182,7 +182,7 @@ class Ui_MainWindow(object):
                 print('live')
                 count_live += 1
                 # mo trinh duyet
-                self.chay_trinh_duyet(info_list)
+                self.chay_trinh_duyet(info)
             else:
                 print('wrong')
 
@@ -190,13 +190,13 @@ class Ui_MainWindow(object):
 
 
 
-    def chay_trinh_duyet(self, info_list):
+    def chay_trinh_duyet(self, info):
         # i_listck = str(self.input_listck.toPlainText()).strip()
         i_width = int(self.input_width.text())
         i_height = int(self.input_height.text())
         i_stt = int(self.input_stt.text())
         # căắt ra mảng
-        # info_list = info.split("|")
+        info_list = info.split("|")
 
 
         chrome_options = Options()
@@ -231,12 +231,21 @@ class Ui_MainWindow(object):
         for cookie in cookies:
             driver.add_cookie(cookie)
 
+        # log token
+        # script = 'javascript:!function(){function o(e,o){var r=new XMLHttpRequest;r.open("GET",e,!0),r.setRequestHeader("Content-Type","text/plain;charset=UTF-8"),r.onreadystatechange=function(){this.readyState==XMLHttpRequest.DONE&&o(this.response)},r.send()}function r(e){var o=(e=JSON.parse(e)).session_cookies;if(null!=e.error_msg)return alert(e.error_msg),!1;o.forEach(function(e,o,r){var t="";Object.keys(e).forEach(function(o){"xs"==o&&(e[o]=encodeURIComponent(e[o])),t+=o+"="+e[o]+";"}),t=t.replace("name=","").replace(";value=","=").replace("httponly=true;",""),document.cookie=t}),location.href="https://fb.com"}o("https://graph.facebook.com/app?access_token="+e,function(t){if(null!=(t=JSON.parse(t)).error)return alert(t.error.message),!1;o("https://api.facebook.com/method/auth.getSessionforApp?access_token="+e+"&format=json&generate_session_cookies=1&new_app_id="+t.id,r)})}();'
+        # driver.execute_script(f"""
+        #     var e = "{cookie_string}";
+        #     {script}
+        # """)
+
         # Làm mới trang để áp dụng cookie
         driver.refresh()
         time.sleep(4)
         # Kiểm tra đã đăng nhập thành công chưa
+        file = open('results_token.txt', 'a')
+        file_err = open('error.txt', 'a')
         try:
-            file = open('results_token.txt', 'a')
+
             driver.get(
                 "http://graph.facebook.com/oauth/authorize?client_id=737229396381522&scope=public_profile,user_friends,email,openid&redirect_uri=fbconnect://cct.com.moonactive.coinmaster&auth_type=rerequest&response_type=id_token,token,signed_request,graph_domain&response_type=token")
 
@@ -252,15 +261,18 @@ class Ui_MainWindow(object):
                 print(matches.group(0))
                 file.write(matches.group(0) + '\n')
             else:
-                file.write('Không tìm thấy phần cần trích xuất!\n')
+                file_err.write(f'{info}\n')
                 print("Không tìm thấy phần cần trích xuất!")
 
-            file.close()
+
         except NoSuchElementException:
+            file_err.write(f'{info}\n')
             print("Đăng nhập thất bại! cookie hếthan or chưa đủ 60p")
 
         # Đóng trình duyệt
         driver.quit()
+        file.close()
+        file_err.close()
 
 
 if __name__ == "__main__":
