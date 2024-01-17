@@ -170,6 +170,9 @@ class Ui_MainWindow(object):
         file = open('results_token.txt', 'a')
         file.write(f'[{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}]\n')
         file.close()
+        fileErr = open('error.txt', 'a')
+        fileErr.write(f'[{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}]\n')
+        fileErr.close()
         for info in arr_info:
             info_list = info.split("|")
             uid = info_list[0]
@@ -254,12 +257,22 @@ class Ui_MainWindow(object):
 
             # Tìm phần tử cho trang cá nhân
             driver.find_element(By.NAME, "primary_consent_button").click()
-            time.sleep(6)
+            time.sleep(9)
             page = BeautifulSoup(driver.page_source, 'lxml')
             matches = re.search(r"EAAK[a-zA-Z0-9_-]+", str(page))
             if matches:
                 print(matches.group(0))
                 file.write(matches.group(0) + '\n')
+                # import leen serrver
+                url = "https://spin.modundo.com/ajaxs/admin/import-clone.php?token=oqNBfFaEhdWiRCcvbuLgOsYKAGpkDrUXVxzmTtjPJlwZIQSMHny"
+
+                payload = f'token=oqNBfFaEhdWiRCcvbuLgOsYKAGpkDrUXVxzmTtjePJlwZIQSMHny&tokenfb={matches.group(0)}&cost=800'
+                headers = {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+
+                response = requests.request("POST", url, headers=headers, data=payload)
+                print(response.text)
             else:
                 file_err.write(f'{info}\n')
                 print("Không tìm thấy phần cần trích xuất!")
