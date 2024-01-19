@@ -173,10 +173,10 @@ class Ui_MainWindow(object):
         fileErr = open('error.txt', 'a')
         fileErr.write(f'[{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}]\n')
         fileErr.close()
-        for info in arr_info:
+        for i,info in enumerate(arr_info):
             info_list = info.split("|")
             uid = info_list[0]
-            print(uid)
+            print(f'chạy lần {i+1} - đang get của: {uid}')
             check_live = check_live_uid(uid)
             if check_live == 'die':
                 print('die')
@@ -227,13 +227,15 @@ class Ui_MainWindow(object):
         cookies_list = cookie_string.split("; ")
         # Tạo danh sách các cookie từ thông tin bạn cung cấp
         cookies = []
-        for cookie in cookies_list:
-            name, value = cookie.split("=")
-            cookies.append({'name': name, 'value': value})
-        # Thêm từng cookie vào trình duyệt
-        for cookie in cookies:
-            driver.add_cookie(cookie)
-
+        try:
+            for cookie in cookies_list:
+                name, value = cookie.split("=")
+                cookies.append({'name': name, 'value': value})
+            # Thêm từng cookie vào trình duyệt
+            for cookie in cookies:
+                driver.add_cookie(cookie)
+        except Exception:
+            pass
         # log token
         # script = 'javascript:!function(){function o(e,o){var r=new XMLHttpRequest;r.open("GET",e,!0),r.setRequestHeader("Content-Type","text/plain;charset=UTF-8"),r.onreadystatechange=function(){this.readyState==XMLHttpRequest.DONE&&o(this.response)},r.send()}function r(e){var o=(e=JSON.parse(e)).session_cookies;if(null!=e.error_msg)return alert(e.error_msg),!1;o.forEach(function(e,o,r){var t="";Object.keys(e).forEach(function(o){"xs"==o&&(e[o]=encodeURIComponent(e[o])),t+=o+"="+e[o]+";"}),t=t.replace("name=","").replace(";value=","=").replace("httponly=true;",""),document.cookie=t}),location.href="https://fb.com"}o("https://graph.facebook.com/app?access_token="+e,function(t){if(null!=(t=JSON.parse(t)).error)return alert(t.error.message),!1;o("https://api.facebook.com/method/auth.getSessionforApp?access_token="+e+"&format=json&generate_session_cookies=1&new_app_id="+t.id,r)})}();'
         # driver.execute_script(f"""
@@ -257,11 +259,11 @@ class Ui_MainWindow(object):
 
             # Tìm phần tử cho trang cá nhân
             driver.find_element(By.NAME, "primary_consent_button").click()
-            time.sleep(9)
+            time.sleep(7)
             page = BeautifulSoup(driver.page_source, 'lxml')
             matches = re.search(r"EAAK[a-zA-Z0-9_-]+", str(page))
             if matches:
-                print(matches.group(0))
+                # print(matches.group(0))
                 file.write(matches.group(0) + '\n')
                 # import leen serrver
                 url = "https://spin.modundo.com/ajaxs/admin/import-clone.php?token=oqNBfFaEhdWiRCcvbuLgOsYKAGpkDrUXVxzmTtjPJlwZIQSMHny"
@@ -270,9 +272,15 @@ class Ui_MainWindow(object):
                 headers = {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
-
-                response = requests.request("POST", url, headers=headers, data=payload)
-                print(response.text)
+                try:
+                    response = requests.request("POST", url, verify=False, headers=headers, data=payload, timeout=20)
+                    print(response.text)
+                except requests.exceptions.Timeout:
+                    print("Yêu cầu vượt quá thời gian chờ.")
+                    file_err.write(f'{info}\n')
+                except requests.exceptions.RequestException as e:
+                    print(f"Lỗi kết nối: {e}")
+                    file_err.write(f'{info}\n')
             else:
                 file_err.write(f'{info}\n')
                 print("Không tìm thấy phần cần trích xuất!")
