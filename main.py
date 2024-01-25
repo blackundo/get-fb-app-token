@@ -23,6 +23,9 @@ from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+import urllib3
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 def check_live_uid(uid):
@@ -173,10 +176,10 @@ class Ui_MainWindow(object):
         fileErr = open('error.txt', 'a')
         fileErr.write(f'[{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}]\n')
         fileErr.close()
-        for i,info in enumerate(arr_info):
+        for i, info in enumerate(arr_info):
             info_list = info.split("|")
             uid = info_list[0]
-            print(f'chạy lần {i+1} - đang get của: {uid}')
+            print(f'chạy lần {i + 1} - đang get của: {uid}')
             check_live = check_live_uid(uid)
             if check_live == 'die':
                 print('die')
@@ -189,9 +192,7 @@ class Ui_MainWindow(object):
             else:
                 print('wrong')
 
-        print('Xong, Tổng số live: {} - die {}'.format(count_live,count_die))
-
-
+        print('Xong, Tổng số live: {} - die {}'.format(count_live, count_die))
 
     def chay_trinh_duyet(self, info):
         # i_listck = str(self.input_listck.toPlainText()).strip()
@@ -200,7 +201,6 @@ class Ui_MainWindow(object):
         i_stt = int(self.input_stt.text())
         # căắt ra mảng
         info_list = info.split("|")
-
 
         chrome_options = Options()
         # Thêm User Agent mới (đổi thành User Agent mong muốn)
@@ -278,7 +278,13 @@ class Ui_MainWindow(object):
                 except requests.exceptions.Timeout:
                     print("Yêu cầu vượt quá thời gian chờ.")
                     file_err.write(f'{info}\n')
+                except requests.exceptions.ConnectionError:
+                    print("Yêu cầu vượt quá thời gian chờ.")
+                    file_err.write(f'{info}\n')
                 except requests.exceptions.RequestException as e:
+                    print(f"Lỗi kết nối: {e}")
+                    file_err.write(f'{info}\n')
+                except Exception as e:
                     print(f"Lỗi kết nối: {e}")
                     file_err.write(f'{info}\n')
             else:
