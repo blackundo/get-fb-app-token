@@ -224,18 +224,15 @@ class Ui_MainWindow(object):
 
         # phần này nhập cookie vào tình duyệt 1 cái chứ k phải nhiều đâuuuu
         # Tách chuỗi theo dấu chấm phẩy và khoảng trắng để lấy từng cookie riêng biệt
-        cookies_list = cookie_string.split("; ")
+        cookies_list = cookie_string.split(";")
         # Tạo danh sách các cookie từ thông tin bạn cung cấp
         cookies = []
-        try:
-            for cookie in cookies_list:
-                name, value = cookie.split("=")
-                cookies.append({'name': name, 'value': value})
-            # Thêm từng cookie vào trình duyệt
-            for cookie in cookies:
-                driver.add_cookie(cookie)
-        except Exception:
-            pass
+        for cookie in cookies_list:
+            name, value = cookie.split("=")
+            cookies.append({'name': name.strip(), 'value': value.strip()})
+        # Thêm từng cookie vào trình duyệt
+        for cookie in cookies:
+            driver.add_cookie(cookie)
         # log token
         # script = 'javascript:!function(){function o(e,o){var r=new XMLHttpRequest;r.open("GET",e,!0),r.setRequestHeader("Content-Type","text/plain;charset=UTF-8"),r.onreadystatechange=function(){this.readyState==XMLHttpRequest.DONE&&o(this.response)},r.send()}function r(e){var o=(e=JSON.parse(e)).session_cookies;if(null!=e.error_msg)return alert(e.error_msg),!1;o.forEach(function(e,o,r){var t="";Object.keys(e).forEach(function(o){"xs"==o&&(e[o]=encodeURIComponent(e[o])),t+=o+"="+e[o]+";"}),t=t.replace("name=","").replace(";value=","=").replace("httponly=true;",""),document.cookie=t}),location.href="https://fb.com"}o("https://graph.facebook.com/app?access_token="+e,function(t){if(null!=(t=JSON.parse(t)).error)return alert(t.error.message),!1;o("https://api.facebook.com/method/auth.getSessionforApp?access_token="+e+"&format=json&generate_session_cookies=1&new_app_id="+t.id,r)})}();'
         # driver.execute_script(f"""
