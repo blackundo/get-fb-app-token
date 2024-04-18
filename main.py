@@ -228,8 +228,11 @@ class Ui_MainWindow(object):
         # Tạo danh sách các cookie từ thông tin bạn cung cấp
         cookies = []
         for cookie in cookies_list:
-            name, value = cookie.split("=")
-            cookies.append({'name': name.strip(), 'value': value.strip()})
+            try:
+                name, value = cookie.split("=")
+                cookies.append({'name': name.strip(), 'value': value.strip()})
+            except ValueError:
+                pass
         # Thêm từng cookie vào trình duyệt
         for cookie in cookies:
             driver.add_cookie(cookie)
@@ -240,7 +243,7 @@ class Ui_MainWindow(object):
         #     {script}
         # """)
 
-        # Làm mới trang để áp dụng cookie
+        # Làm mới trang để áp dụng cookieN
         driver.refresh()
         time.sleep(4)
         # Kiểm tra đã đăng nhập thành công chưa
