@@ -26,26 +26,29 @@ driver.get("https://facebook.com")
 # Chuỗi cookie ban đầu
 # cookie_string = "wd=1115x1269; datr=fE-lZR8_2L_m7NzLAMXIg0rl; fr=0z7ge5GFvkY7gjerK.AWVIl6usZCveOzThYQZ-Ny7f_L8.BlpVGJ.EN.AAA.0.0.BlpVJb.AWU6-Sql_Ck; sb=W1KlZWHe4D2XeNmTEU3ReZbL; locale=id_ID; c_user=61555297305843; xs=2:vbkRG-rRtbb0Og:2:1705333346:-1:-1"
 
-info = "61555611835058|nellmmiujimenez495|EAAAAUaZA8jlABOZBIOGupkNwXmIcAj1ei6ZA83bszNPLQZBvQwjpzGaZCBIViJfsWdctZAtFZBV0Dbs5fCgskjpZCJux1CoeCUg7hPiUkOpoGrKblmMWc8Xge8iY6z7PcihXZCqXoWVbUwRkP0GbF6JY4MmehvIxZBrtZARnAZC7Xi9N4cDW2X4mpe9ylmNt5qUFvtZA8VKrv1nhZAZAAZDZD|c_user=61555611835058;xs=27:adIYvdcr-9MMDw:2:1705268232:-1:-1;fr=09Js9FPTfZwB8uFAP.AWVZA_wYZvYw9XNyY5gT2ORJURo.BlpFQI.Jz.AAA.0.0.BlpFQI.AWUzSRRsgUE;datr=81OkZZYWL5BPHxhPRfRzxdW1;||Nell_Jimenez|F|31/07/1990|01/15/2024_04:36:17|CO"
-
+info = "61558499008347|tuyetfgpho719|EAAAAUaZA8jlABOyxKcC0s2dGitonBwAthNkK8mfmJbpJFTZCe01KoR4dsREzAt3JE5T5cAwm4ZCM15xf9hJiYxkfszn6ouoV8Fl9Xrblnb3oOlprMxZC1kAOGc7wMwupmVNeCTHXM3IcRbPZC2QVX2BwlIAZARcVTOU0ig85S9ZBswhN9IcZBBZA2k7Q1qi34iKEKVVfMgWDzEQZDZD|c_user=61558499008347;xs=43:yxrCjI7BzeLhiw:2:1713054990:-1:-1;fr=0RHlQz7mNGtpfD25P.AWV6KS43oibRT8EVgp76aU9pLyY.BmGyUN..AAA.0.0.BmGyUN.AWVXLDAmvgM;datr=AiUbZl0MzpdemMQ5gtc5iIQQ;|giovannakoch10@gmail.com|Tuyet Nhi Ho|F|26/11/1982|04/14/2024 07:35:55|VN"
 info_list = info.split("|")
 # chọn thứ tự của cokie
-cookie_string = info_list[2]
+cookie_string = info_list[3]
 print(cookie_string)
 
 
 
 # phần này nhập cookie vào tình duyệt 1 cái chứ k phải nhiều đâuuuu
 # Tách chuỗi theo dấu chấm phẩy và khoảng trắng để lấy từng cookie riêng biệt
-cookies_list = cookie_string.split("; ")
+cookies_list = cookie_string.split(";")
+
+
 # Tạo danh sách các cookie từ thông tin bạn cung cấp
 cookies = []
 for cookie in cookies_list:
     try:
         name, value = cookie.split("=")
-        cookies.append({'name': name, 'value': value})
+        cookies.append({'name': name.strip(), 'value': value.strip()})
     except ValueError:
         pass
+# for cookie in cookies:
+#     print(cookie)
 # Thêm từng cookie vào trình duyệt
 for cookie in cookies:
     driver.add_cookie(cookie)
