@@ -18,7 +18,8 @@
   {
     "code": "pe_HELPzmyvfh_20241222",
     "expiration": "2024-12-25T23:59:59Z"
-  },{
+  },
+  {
     "code": "pe_CHATByAGULi_20241221",
     "expiration": "2024-12-31T23:59:59Z"
   },
@@ -33,9 +34,80 @@
   {
     "code": "pe_FCBXtVbZh_20241221",
     "expiration": "2024-12-31T23:59:59Z"
+  },{
+    "code": "pe_INStUWnxn_20241221",
+    "expiration": "2024-12-31T23:59:59Z"
+  },
+  {
+    "code": "pe_FCBtSnRPJ_20241221",
+    "expiration": "2024-12-31T23:59:59Z"
   },
   {
     "code": "pe_EMAILoZSWGT_20241218",
-    "expiration": "2024-12-25T23:59:59Z"
+    "expiration": "2024-12-28T23:59:59Z"
+  },
+  {
+    "code": "pe_FCBXtVbZh_20241221",
+    "expiration": "2024-12-31T23:59:59Z"
+  },
+  {
+    "code": "pe_HELPKwoyQL_20241221",
+    "expiration": "2024-12-31T23:59:59Z"
+  },
+  {
+    "code": "pe_CHATByAGULi_20241221",
+    "expiration": "2024-12-31T23:59:59Z"
+  },
+  {
+    "code": "pe_TWIUWOlGD_20241221",
+    "expiration": "2024-12-31T23:59:59Z"
+  },
+  {
+    "code": "pe_FCBzcNCDm_20241220",
+    "expiration": "2024-12-30T23:59:59Z"
+  },
+  {
+    "code": "pe_EMAILmiFoBd_20241217",
+    "expiration": "2024-12-27T23:59:59Z"
+  },
+  {
+    "code": "pe_INSLgMGhR_20241220",
+    "expiration": "2024-12-30T23:59:59Z"
+  },
+  {
+    "code": "pe_FCBdaXiVv_20241220",
+    "expiration": "2024-12-30T23:59:59Z"
+  },
+  {
+    "code": "pe_HELPMQvgwH_20241220",
+    "expiration": "2024-12-30T23:59:59Z"
+  },
+  {
+    "code": "pe_CHATBuxSwtb_20241220",
+    "expiration": "2024-12-30T23:59:59Z"
+  },
+  {
+    "code": "pe_FCBaAdGdx_20241219",
+    "expiration": "2024-12-29T23:59:59Z"
+  },
+  {
+    "code": "pe_RICHsSzPEG_20241210",
+    "expiration": "2024-12-20T23:59:59Z"
+  },
+  {
+    "code": "pe_EMAILwDCSUp_20241216",
+    "expiration": "2024-12-26T23:59:59Z"
+  },
+  {
+    "code": "pe_FCBaZrGwG_20241219",
+    "expiration": "2024-12-29T23:59:59Z"
+  },
+  {
+    "code": "pe_INSwmujeY_20241219",
+    "expiration": "2024-12-29T23:59:59Z"
+  },
+  {
+    "code": "pe_CHATBZEVUYI_20241219",
+    "expiration": "2024-12-29T23:59:59Z"
   }
 ]
