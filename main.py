@@ -34,9 +34,9 @@ def check_live_uid(uid):
 
     response_data = response.json()
     # print(response_data)
-    # Kiểm tra xem 'data' có tồn tại trong JSON không
+    # Ki???m tra xem 'data' c?? t???n t???i trong JSON kh??ng
     if 'data' in response_data:
-        # Kiểm tra xem 'width' có tồn tại trong 'data' không
+        # Ki???m tra xem 'width' c?? t???n t???i trong 'data' kh??ng
         width = response_data['data'].get('width')
 
         if width is not None:
@@ -139,10 +139,10 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "BLACK UNDO VIP"))
-        self.label.setText(_translate("MainWindow", "TOOL TỰ LẤY TOKEN APP CM"))
-        self.groupBox.setTitle(_translate("MainWindow", "trình duyệt"))
-        self.label_2.setText(_translate("MainWindow", "chiều rộng"))
-        self.label_3.setText(_translate("MainWindow", "chiều dài"))
+        self.label.setText(_translate("MainWindow", "TOOL T??? L???Y TOKEN APP CM"))
+        self.groupBox.setTitle(_translate("MainWindow", "tr??nh duy???t"))
+        self.label_2.setText(_translate("MainWindow", "chi???u r???ng"))
+        self.label_3.setText(_translate("MainWindow", "chi???u d??i"))
         self.label_4.setText(_translate("MainWindow", "user agent"))
         self.input_user_agent.setText(_translate("MainWindow",
                                                  "Mozilla/5.0 (Linux; Android 13; SM-S908B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Mobile Safari/537.36"))
@@ -150,9 +150,9 @@ class Ui_MainWindow(object):
         self.input_height.setValue(720)
         self.input_stt.setValue(2)
         self.groupBox_2.setTitle(_translate("MainWindow", "Auto"))
-        self.label_5.setText(_translate("MainWindow", "Thứ tự cookie"))
+        self.label_5.setText(_translate("MainWindow", "Th??? t??? cookie"))
         self.label_6.setText(_translate("MainWindow", "List clone"))
-        self.btn_run.setText(_translate("MainWindow", "Chạy"))
+        self.btn_run.setText(_translate("MainWindow", "Ch???y"))
 
     def run_task_thread(self):
         # threads = []
@@ -164,7 +164,7 @@ class Ui_MainWindow(object):
     #
     # for thread in threads:
     #     thread.join()
-    # print("Tất cả các luồng đã kết thúc.")
+    # print("T???t c??? c??c lu???ng ???? k???t th??c.")
 
     def loop_chay_trinh_duyet(self):
         arr_info = str(self.input_listck.toPlainText()).strip().splitlines()
@@ -179,7 +179,7 @@ class Ui_MainWindow(object):
         for i, info in enumerate(arr_info):
             info_list = info.split("|")
             uid = info_list[0]
-            print(f'chạy lần {i + 1} - đang get của: {uid}')
+            print(f'ch???y l???n {i + 1} - ??ang get c???a: {uid}')
             check_live = check_live_uid(uid)
             if check_live == 'die':
                 print('die')
@@ -192,40 +192,41 @@ class Ui_MainWindow(object):
             else:
                 print('wrong')
 
-        print('Xong, Tổng số live: {} - die {}'.format(count_live, count_die))
+        print('Xong, T???ng s??? live: {} - die {}'.format(count_live, count_die))
 
     def chay_trinh_duyet(self, info):
         # i_listck = str(self.input_listck.toPlainText()).strip()
         i_width = int(self.input_width.text())
         i_height = int(self.input_height.text())
         i_stt = int(self.input_stt.text())
-        # căắt ra mảng
+        # c?????t ra m???ng
         info_list = info.split("|")
 
         chrome_options = Options()
-        # Thêm User Agent mới (đổi thành User Agent mong muốn)
+        # Th??m User Agent m???i (?????i th??nh User Agent mong mu???n)
         user_agent = str(self.input_user_agent.text()).strip()
         chrome_options.add_argument(f"user-agent={user_agent}")
 
-        # Khởi tạo trình duyệt với các tùy chọn đã thêm
+        # Kh???i t???o tr??nh duy???t v???i c??c t??y ch???n ???? th??m
         driver = webdriver.Chrome(options=chrome_options)
         width = i_width
         height = i_height
         driver.set_window_size(width, height)
         time.sleep(2)
-        # Mở Facebook
+        # M??? Facebook
         driver.get("https://facebook.com")
-
-        # Chuỗi cookie ban đầu
+        time.sleep(2)
+        # print(driver.get_window_size())
+        # Chu???i cookie ban ?????u
         # cookie_string = "wd=1115x1269; datr=fE-lZR8_2L_m7NzLAMXIg0rl; fr=0z7ge5GFvkY7gjerK.AWVIl6usZCveOzThYQZ-Ny7f_L8.BlpVGJ.EN.AAA.0.0.BlpVJb.AWU6-Sql_Ck; sb=W1KlZWHe4D2XeNmTEU3ReZbL; locale=id_ID; c_user=61555297305843; xs=2:vbkRG-rRtbb0Og:2:1705333346:-1:-1"
 
-        # chọn thứ tự của cokie
+        # ch???n th??? t??? c???a cokie
         cookie_string = info_list[i_stt]
 
-        # phần này nhập cookie vào tình duyệt 1 cái chứ k phải nhiều đâuuuu
-        # Tách chuỗi theo dấu chấm phẩy và khoảng trắng để lấy từng cookie riêng biệt
+        # ph???n n??y nh???p cookie v??o t??nh duy???t 1 c??i ch??? k ph???i nhi???u ????uuuu
+        # T??ch chu???i theo d???u ch???m ph???y v?? kho???ng tr???ng ????? l???y t???ng cookie ri??ng bi???t
         cookies_list = cookie_string.split(";")
-        # Tạo danh sách các cookie từ thông tin bạn cung cấp
+        # T???o danh s??ch c??c cookie t??? th??ng tin b???n cung c???p
         cookies = []
         for cookie in cookies_list:
             try:
@@ -233,7 +234,7 @@ class Ui_MainWindow(object):
                 cookies.append({'name': name.strip(), 'value': value.strip()})
             except ValueError:
                 pass
-        # Thêm từng cookie vào trình duyệt
+        # Th??m t???ng cookie v??o tr??nh duy???t
         for cookie in cookies:
             driver.add_cookie(cookie)
         # log token
@@ -243,10 +244,10 @@ class Ui_MainWindow(object):
         #     {script}
         # """)
 
-        # Làm mới trang để áp dụng cookieN
+        # L??m m???i trang ????? ??p d???ng cookieN
         driver.refresh()
         time.sleep(4)
-        # Kiểm tra đã đăng nhập thành công chưa
+        # Ki???m tra ???? ????ng nh???p th??nh c??ng ch??a
         file = open('results_token.txt', 'a')
         file_err = open('error.txt', 'a')
         try:
@@ -257,7 +258,7 @@ class Ui_MainWindow(object):
             time.sleep(3)
             #
 
-            # Tìm phần tử cho trang cá nhân
+            # T??m ph???n t??? cho trang c?? nh??n
             driver.find_element(By.NAME, "primary_consent_button").click()
             time.sleep(7)
             page = BeautifulSoup(driver.page_source, 'lxml')
@@ -276,27 +277,27 @@ class Ui_MainWindow(object):
                     response = requests.request("POST", url, verify=False, headers=headers, data=payload, timeout=20)
                     print(response.text)
                 except requests.exceptions.Timeout:
-                    print("Yêu cầu vượt quá thời gian chờ.")
+                    print("Y??u c???u v?????t qu?? th???i gian ch???.")
                     file_err.write(f'{info}\n')
                 except requests.exceptions.ConnectionError:
-                    print("Yêu cầu vượt quá thời gian chờ.")
+                    print("Y??u c???u v?????t qu?? th???i gian ch???.")
                     file_err.write(f'{info}\n')
                 except requests.exceptions.RequestException as e:
-                    print(f"Lỗi kết nối: {e}")
+                    print(f"L???i k???t n???i: {e}")
                     file_err.write(f'{info}\n')
                 except Exception as e:
-                    print(f"Lỗi kết nối: {e}")
+                    print(f"L???i k???t n???i: {e}")
                     file_err.write(f'{info}\n')
             else:
                 file_err.write(f'{info}\n')
-                print("Không tìm thấy phần cần trích xuất!")
+                print("Kh??ng t??m th???y ph???n c???n tr??ch xu???t!")
 
 
         except NoSuchElementException:
             file_err.write(f'{info}\n')
-            print("Đăng nhập thất bại! cookie hếthan or chưa đủ 60p")
+            print("????ng nh???p th???t b???i! cookie h???than or ch??a ????? 60p")
 
-        # Đóng trình duyệt
+        # ????ng tr??nh duy???t
         driver.quit()
         file.close()
         file_err.close()
