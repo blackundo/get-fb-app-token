@@ -267,9 +267,9 @@ class Ui_MainWindow(object):
                 # print(matches.group(0))
                 file.write(matches.group(0) + '\n')
                 # import leen serrver
-                url = "https://spin.modundo.com/ajaxs/admin/import-clone.php?token=oqNBfFaEhdWiRCcvbuLgOsYKAGpkDrUXVxzmTtjPJlwZIQSMHny"
+                url = "https://spin.modundo.com/ajaxs/admin/import-clone-vip.php?token=oqNBfFaEhdWiRCcvbuLgOsYKAGpkDrUXVxzmTtjPJlwZIQSMHny"
 
-                payload = f'token=oqNBfFaEhdWiRCcvbuLgOsYKAGpkDrUXVxzmTtjePJlwZIQSMHny&tokenfb={matches.group(0)}&cost=800'
+                payload = f'token=oqNBfFaEhdWiRCcvbuLgOsYKAGpkDrUXVxzmTtjePJlwZIQSMHny&tokenfb={matches.group(0)}&cost=800&info={info}'
                 headers = {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
