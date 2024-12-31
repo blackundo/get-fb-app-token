@@ -59,4 +59,4 @@ if __name__ == "__main__":
     with open('spinfree.json', 'w') as json_file:
         json.dump(codes_json, json_file, indent=2)
     
-    print("JSON file 'codes.json' created successfully.")
+    print("JSON file 'spinfree.json' created successfully.")
