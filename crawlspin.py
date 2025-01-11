@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import re
-from urlparse import urlparse, parse_qs
+from urllib.parse import urlparse, parse_qs
 import json
 
 
