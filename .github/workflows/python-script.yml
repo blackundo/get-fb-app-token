@@ -1,0 +1,38 @@
+name: Run Python Script and Upload spinfree.json
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # Chạy mỗi 5 phút
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest  # Chạy trên môi trường Ubuntu
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3  # Lấy mã nguồn của repository
+
+    - name: Set up Python
+      uses: actions/setup-python@v4  # Thiết lập môi trường Python
+      with:
+        python-version: '3.8'  # Bạn có thể chọn phiên bản Python khác nếu cần
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests beautifulsoup4  # Cài đặt các thư viện cần thiết
+        # pip install -r requirements.txt
+
+    - name: Run Python script
+      run: |
+        python crawlspin.py  # Thay your_script.py bằng tên file script của bạn
+
+    - name: Commit and push spinfree.json
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GitHub token để thực hiện push
+      run: |
+        git config --global user.name "blackundo"
+        git config --global user.email "blackundovn@gmail.com"
+        git add spinfree.json
+        git commit -m "Add generated spinfree.json"
+        git push
