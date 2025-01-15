@@ -1,7 +1,9 @@
 name: Run Python Script and Upload spinfree.json
 
 on:
-  workflow_dispatch:
+  schedule:
+    - cron: "0 */6 * * *" # Chạy mỗi 6 tiếng
+  workflow_dispatch: # Cho phép chạy thủ công nếu cần
 
 jobs:
   run-script:
