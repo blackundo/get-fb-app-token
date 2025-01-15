@@ -35,5 +35,5 @@ jobs:
         git config --global user.name "blackundo"
         git config --global user.email "blackundovn@gmail.com"
         git add spinfree.json
-        git commit -m "Add generated spinfree.json"
+        git commit -m "Add generated spinfree.json at $(date +"%Y-%m-%d %H:%M:%S")"
         git push
