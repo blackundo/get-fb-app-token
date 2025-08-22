@@ -18,10 +18,11 @@ def extract_links(html):
     soup = BeautifulSoup(html, 'html.parser')
     pattern = re.compile(r"https://rewards\.coinmaster\.com/rewards/rewards\.html\?c=\w+")
     pattern2 = re.compile(r"https://static\.moonactive\.net/static/coinmaster/reward/reward2\.html\?c=pe_\w+(_\w+)*")
+    pattern3 = re.compile(r"https://coinmaster\.onelink\.me/\d+\?[^\"'\s]+")
     links = []
     for a_tag in soup.find_all('a', href=True):
         href = a_tag['href']
-        if pattern.match(href) or pattern2.match(href):
+        if pattern.match(href) or pattern2.match(href) or pattern3.match(href):
             links.append(href)
     return links
 
@@ -48,7 +49,6 @@ if __name__ == "__main__":
     urls = [
         "https://www.topzone.vn/tekzone/cach-nhan-spin-coin-master-1556360",
         "https://www.thegioididong.com/game-app/3-cach-nhan-hang-tram-luot-spin-mien-phi-trong-coin-m-1257965",
-        "https://cellphones.com.vn/sforum/link-nhan-code-coin-master-spin",
         "https://levvvel.com/vi/free-spin-code-coin-master/",
         "https://gamevui.vn/huong-dan/link-nhan-spin-va-thuong-vang-mien-phi-game-coin-master-90",
         "https://viettelstore.vn/tin-tuc/huong-dan-nhan-spin-coin-master-moi-nhat"
